@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,16 +49,16 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.IOException;
 
 import me.prapon.eyeblinkdetection.utils.OnEyesClosed;
+import me.prapon.eyeblinkdetection.utils.OnEyesOpened;
 import me.prapon.eyeblinkdetection.vision.CameraSourcePreview;
 import me.prapon.eyeblinkdetection.vision.EyesGraphics;
 import me.prapon.eyeblinkdetection.vision.FaceTracker;
 import me.prapon.eyeblinkdetection.vision.GraphicOverlay;
 
-public final class EyesActivity extends AppCompatActivity implements OnEyesClosed {
+public final class EyesActivity extends AppCompatActivity implements OnEyesClosed, OnEyesOpened {
     private static final String TAG = "GooglyEyes";
-
     private static final int RC_HANDLE_GMS = 9001;
-
+    MediaPlayer mediaPlayer = null;
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
 
@@ -78,6 +79,7 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
         mPreview = findViewById(R.id.preview);
         mGraphicOverlay = findViewById(R.id.faceOverlay);
         EyesGraphics.onEyesClosed = this;
+        EyesGraphics.onEyesOpened = this;
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
 
@@ -315,7 +317,44 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
 
     @Override
     public void onEyesClosed() {
+        playSound();
         Toast.makeText(this, "YOUR EYES ARE CLOSED!", Toast.LENGTH_SHORT).show();
         Log.d("EYES STATUS", "YOUR EYES ARE CLOSED!");
+    }
+
+    public void playSound(){
+        if (mediaPlayer == null){
+            mediaPlayer = MediaPlayer.create(this,R.raw.double_horn);
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    stopPlayer();
+                }
+            });
+        }
+        mediaPlayer.start();
+    }
+
+    public void stopSound(){
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+        }
+    }
+    public void stopPlayer(){
+        if(mediaPlayer != null){
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopPlayer();
+    }
+
+    @Override
+    public void onEyesOpened() {
+        stopPlayer();
     }
 }
