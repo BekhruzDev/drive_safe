@@ -1,4 +1,4 @@
-package me.prapon.eyeblinkdetection.ui;
+package me.prapon.eyeblinkdetection;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import me.prapon.eyeblinkdetection.EyesActivity;
 import me.prapon.eyeblinkdetection.R;
 
 

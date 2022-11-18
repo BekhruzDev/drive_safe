@@ -19,11 +19,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.widget.Toast;
+
+import me.prapon.eyeblinkdetection.utils.OnEyesClosed;
 
 /**
  * Graphics class for rendering Googly Eyes on a graphic overlay given the current eye positions.
  */
-class EyesGraphics extends GraphicOverlay.Graphic {
+public class EyesGraphics extends GraphicOverlay.Graphic {
+    public static OnEyesClosed onEyesClosed;
     private static final float EYE_RADIUS_PROPORTION = 0.45f;
     private static final float IRIS_RADIUS_PROPORTION = EYE_RADIUS_PROPORTION / 2.0f;
 
@@ -128,6 +132,7 @@ class EyesGraphics extends GraphicOverlay.Graphic {
             canvas.drawCircle(eyePosition.x, eyePosition.y, eyeRadius, mEyeWhitesPaint);
             canvas.drawCircle(irisPosition.x, irisPosition.y, irisRadius, mEyeIrisPaint);
         } else {
+            onEyesClosed.onEyesClosed();
             canvas.drawCircle(eyePosition.x, eyePosition.y, eyeRadius, mEyeLidPaint);
             float y = eyePosition.y;
             float start = eyePosition.x - eyeRadius;
@@ -136,4 +141,5 @@ class EyesGraphics extends GraphicOverlay.Graphic {
         }
         canvas.drawCircle(eyePosition.x, eyePosition.y, eyeRadius, mEyeOutlinePaint);
     }
+
 }

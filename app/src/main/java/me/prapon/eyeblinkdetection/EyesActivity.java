@@ -47,11 +47,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 
+import me.prapon.eyeblinkdetection.utils.OnEyesClosed;
 import me.prapon.eyeblinkdetection.vision.CameraSourcePreview;
+import me.prapon.eyeblinkdetection.vision.EyesGraphics;
 import me.prapon.eyeblinkdetection.vision.FaceTracker;
 import me.prapon.eyeblinkdetection.vision.GraphicOverlay;
 
-public final class EyesActivity extends AppCompatActivity {
+public final class EyesActivity extends AppCompatActivity implements OnEyesClosed {
     private static final String TAG = "GooglyEyes";
 
     private static final int RC_HANDLE_GMS = 9001;
@@ -65,6 +67,7 @@ public final class EyesActivity extends AppCompatActivity {
 
     private boolean mIsFrontFacing = true;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +77,7 @@ public final class EyesActivity extends AppCompatActivity {
 
         mPreview = findViewById(R.id.preview);
         mGraphicOverlay = findViewById(R.id.faceOverlay);
-
+        EyesGraphics.onEyesClosed = this;
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
 
@@ -83,6 +86,7 @@ public final class EyesActivity extends AppCompatActivity {
         } else {
             requestCameraPermission();
         }
+
     }
 
     /**
@@ -122,7 +126,6 @@ public final class EyesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         startCameraSource();
     }
 
@@ -308,5 +311,11 @@ public final class EyesActivity extends AppCompatActivity {
                 mCameraSource = null;
             }
         }
+    }
+
+    @Override
+    public void onEyesClosed() {
+        Toast.makeText(this, "YOUR EYES ARE CLOSED!", Toast.LENGTH_SHORT).show();
+        Log.d("EYES STATUS", "YOUR EYES ARE CLOSED!");
     }
 }
