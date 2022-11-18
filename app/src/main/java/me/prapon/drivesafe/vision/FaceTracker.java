@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.prapon.eyeblinkdetection.vision;
+package me.prapon.drivesafe.vision;
 
 import android.annotation.SuppressLint;
 import android.graphics.PointF;

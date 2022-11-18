@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.prapon.eyeblinkdetection;
+package me.prapon.drivesafe;
 
 import android.Manifest;
 import android.app.Activity;
@@ -47,9 +47,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 
-import me.prapon.eyeblinkdetection.vision.CameraSourcePreview;
-import me.prapon.eyeblinkdetection.vision.FaceTracker;
-import me.prapon.eyeblinkdetection.vision.GraphicOverlay;
+import me.prapon.drivesafe.vision.CameraSourcePreview;
+import me.prapon.drivesafe.vision.FaceTracker;
+import me.prapon.drivesafe.vision.GraphicOverlay;
 
 public final class EyesActivity extends AppCompatActivity {
     private static final String TAG = "GooglyEyes";

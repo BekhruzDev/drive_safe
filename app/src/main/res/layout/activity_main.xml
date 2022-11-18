@@ -8,16 +8,16 @@
     android:orientation="vertical"
     tools:context=".EyesActivity">
 
-    <me.prapon.eyeblinkdetection.vision.CameraSourcePreview
+    <me.prapon.drivesafe.vision.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <me.prapon.eyeblinkdetection.vision.GraphicOverlay
+        <me.prapon.drivesafe.vision.GraphicOverlay
             android:id="@+id/faceOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </me.prapon.eyeblinkdetection.vision.CameraSourcePreview>
+    </me.prapon.drivesafe.vision.CameraSourcePreview>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package me.prapon.eyeblinkdetection.vision;
+package me.prapon.drivesafe.vision;
 
 import android.Manifest;
 import android.content.Context;
@@ -77,7 +77,7 @@ public class CameraSourcePreview extends ViewGroup {
                 // do not touch here
                 return;
             }
-            mCameraSource.start(mSurfaceView.getHolder());
+            CameraSource start = mCameraSource.start(mSurfaceView.getHolder());
             if (mOverlay != null) {
                 Size size = mCameraSource.getPreviewSize();
                 int min = Math.min(size.getWidth(), size.getHeight());

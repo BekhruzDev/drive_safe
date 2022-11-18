@@ -1,4 +1,4 @@
-package me.prapon.eyeblinkdetection;
+package me.prapon.drivesafe;
 
 import org.junit.Test;
 

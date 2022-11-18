@@ -1,4 +1,4 @@
-package me.prapon.eyeblinkdetection.ui;
+package me.prapon.drivesafe.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import me.prapon.eyeblinkdetection.EyesActivity;
-import me.prapon.eyeblinkdetection.R;
+import me.prapon.drivesafe.EyesActivity;
+import me.prapon.drivesafe.R;
 
 
 public class SplashActivity extends AppCompatActivity {

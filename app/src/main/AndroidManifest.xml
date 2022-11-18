@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.prapon.eyeblinkdetection">
+    package="me.prapon.drivesafe">
 
     <!-- to complete the image processing stuff required permission -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -22,14 +22,15 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="face" />
 
-        <activity android:name=".ui.SplashActivity">
+        <activity android:name="me.prapon.drivesafe.ui.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity   android:name=".EyesActivity"
+        <activity   android:name="me.prapon.drivesafe.EyesActivity"
             android:screenOrientation="fullSensor"/>
 
     </application>
