@@ -1,4 +1,4 @@
-package me.prapon.drivesafe.vision;
+package me.prapon.eyeblinkdetection.vision;
 
 import android.Manifest;
 import android.content.Context;

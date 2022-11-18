@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.prapon.drivesafe.vision;
+package me.prapon.eyeblinkdetection.vision;
 
 import android.content.Context;
 import android.graphics.Canvas;

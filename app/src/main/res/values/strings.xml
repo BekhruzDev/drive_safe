@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eye Blink Detection</string>
+    <string name="app_name">Drive Safe</string>
 
     <!--API-->
     <string name="ok">OK</string>

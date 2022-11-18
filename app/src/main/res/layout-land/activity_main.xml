@@ -9,15 +9,15 @@
     android:keepScreenOn="true"
     tools:context=".EyesActivity">
 
-  <me.prapon.drivesafe.vision.CameraSourcePreview
+  <me.prapon.eyeblinkdetection.vision.CameraSourcePreview
       android:id="@+id/preview"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <me.prapon.drivesafe.vision.GraphicOverlay
+    <me.prapon.eyeblinkdetection.vision.GraphicOverlay
         android:id="@+id/faceOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-  </me.prapon.drivesafe.vision.CameraSourcePreview>
+  </me.prapon.eyeblinkdetection.vision.CameraSourcePreview>
 </RelativeLayout>
