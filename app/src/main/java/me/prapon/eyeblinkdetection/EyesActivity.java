@@ -355,7 +355,7 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
 
     public void playSound(){
         if (mediaPlayer == null){
-            mediaPlayer = MediaPlayer.create(this,R.raw.double_horn);
+            mediaPlayer = MediaPlayer.create(this,R.raw.truck_horn);
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
@@ -387,6 +387,6 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
     @Override
     public void onEyesOpened() {
         stopPlayer();
-        mTopLayout.getBackground().setAlpha(0);
+        //mTopLayout.getBackground().setAlpha(0);
     }
 }
