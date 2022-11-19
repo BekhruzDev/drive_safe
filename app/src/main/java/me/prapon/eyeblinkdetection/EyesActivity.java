@@ -24,10 +24,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -58,6 +60,8 @@ import me.prapon.eyeblinkdetection.vision.GraphicOverlay;
 public final class EyesActivity extends AppCompatActivity implements OnEyesClosed, OnEyesOpened {
     private static final String TAG = "GooglyEyes";
     private static final int RC_HANDLE_GMS = 9001;
+    final static int INTERVAL = 1000; // 1000=1sec
+    boolean whichColor = true;
     MediaPlayer mediaPlayer = null;
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
@@ -65,7 +69,7 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
     private CameraSource mCameraSource = null;
     private CameraSourcePreview mPreview;
     private GraphicOverlay mGraphicOverlay;
-
+    private FrameLayout mTopLayout;
     private boolean mIsFrontFacing = true;
 
 
@@ -77,6 +81,7 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
         setContentView(R.layout.activity_main);
 
         mPreview = findViewById(R.id.preview);
+        mTopLayout = findViewById(R.id.topLayout);
         mGraphicOverlay = findViewById(R.id.faceOverlay);
         EyesGraphics.onEyesClosed = this;
         EyesGraphics.onEyesOpened = this;
@@ -317,9 +322,35 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
 
     @Override
     public void onEyesClosed() {
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(INTERVAL);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    updateColor();
+                    whichColor = !whichColor;
+                }
+            }
+        }).start();
         playSound();
-        Toast.makeText(this, "YOUR EYES ARE CLOSED!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "YOUR EYES ARE CLOSED!", Toast.LENGTH_SHORT).show();
         Log.d("EYES STATUS", "YOUR EYES ARE CLOSED!");
+    }
+
+    private void updateColor() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (whichColor)
+                    mTopLayout.setBackgroundColor(Color.RED);
+                else
+                    mTopLayout.setBackgroundColor(Color.GREEN);
+            }
+        });
     }
 
     public void playSound(){
@@ -356,5 +387,6 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
     @Override
     public void onEyesOpened() {
         stopPlayer();
+        mTopLayout.getBackground().setAlpha(0);
     }
 }
