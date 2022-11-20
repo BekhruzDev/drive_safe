@@ -26,6 +26,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -93,7 +95,6 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
         } else {
             requestCameraPermission();
         }
-
     }
 
     /**
@@ -122,7 +123,7 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
         };
 
         Snackbar.make(mGraphicOverlay, R.string.permission_camera_rationale,
-                Snackbar.LENGTH_INDEFINITE)
+                        Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.ok, listener)
                 .show();
     }
@@ -202,7 +203,7 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
     /**
      * Toggles between front-facing and rear-facing modes.
      */
-    private View.OnClickListener mFlipButtonListener = new View.OnClickListener() {
+    private final View.OnClickListener mFlipButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
             mIsFrontFacing = !mIsFrontFacing;
 
@@ -240,7 +241,6 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
         Detector.Processor<Face> processor;
         if (mIsFrontFacing) {
             // For front facing mode
-
             Tracker<Face> tracker = new FaceTracker(mGraphicOverlay);
             processor = new LargestFaceFocusingProcessor.Builder(detector, tracker).build();
         } else {
@@ -322,40 +322,15 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
 
     @Override
     public void onEyesClosed() {
-        new Thread(new Runnable() {
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(INTERVAL);
-                    }
-                    catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    updateColor();
-                    whichColor = !whichColor;
-                }
-            }
-        }).start();
         playSound();
         //Toast.makeText(this, "YOUR EYES ARE CLOSED!", Toast.LENGTH_SHORT).show();
         Log.d("EYES STATUS", "YOUR EYES ARE CLOSED!");
     }
 
-    private void updateColor() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (whichColor)
-                    mTopLayout.setBackgroundColor(Color.RED);
-                else
-                    mTopLayout.setBackgroundColor(Color.GREEN);
-            }
-        });
-    }
 
-    public void playSound(){
-        if (mediaPlayer == null){
-            mediaPlayer = MediaPlayer.create(this,R.raw.truck_horn);
+    public void playSound() {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.truck_horn);
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
@@ -366,13 +341,14 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
         mediaPlayer.start();
     }
 
-    public void stopSound(){
-        if(mediaPlayer != null){
+    public void stopSound() {
+        if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
     }
-    public void stopPlayer(){
-        if(mediaPlayer != null){
+
+    public void stopPlayer() {
+        if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
         }
@@ -387,6 +363,5 @@ public final class EyesActivity extends AppCompatActivity implements OnEyesClose
     @Override
     public void onEyesOpened() {
         stopPlayer();
-        //mTopLayout.getBackground().setAlpha(0);
     }
 }
