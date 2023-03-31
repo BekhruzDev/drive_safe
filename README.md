@@ -15,6 +15,6 @@ How to use
 
 Note
 ==================
-In the current version of the app, Jave programming language with Google Vision API is used to track the face.
+In the current version of the app, Java programming language with Google Vision API is used to track the face.
 At the same time, we are developing the new version of the app in Kotlin. To increase the quality of face monitoring we using the Google ML Kit.
 Here is the link to the ongoing new version: https://github.com/BekhruzDev/DriveSafeNew
